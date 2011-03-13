@@ -1,20 +1,15 @@
 <!doctype html>
 <html>
    <head>
-      <title>Jenee's Music Survey</title>
+      <title>Url Gim.me</title>
       <link type="text/css" rel="stylesheet" href="style.css" />
    </head>
    <body>
       <div id="stats">
-         <h1>Survey Results So Far</h1>
+         <h1>Submitted Urls</h1>
          <ul>
-            <% entries.each_pair do |key, arr| %>
-               <h3><%= key %></h3>
-               <ul>
-                  <% arr.each do |mood| %>
-                     <li> <%= mood %></li>
-                  <% end %>
-               </ul>
+            <% entries.each do |item| %>
+               <li> <%= item.inspect %></li>
             <% end %>
          </ul>
       </div>

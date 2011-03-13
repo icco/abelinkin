@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 # An app for url shortening
 # @author Nat Welch - https://github.com/icco/abelinkin
 
@@ -35,13 +36,7 @@ post '/' do
    e.date = Time.now
    e.save
 
-   redirect '/'
-end
-
-get /^[0-9a-f]+$/ do |hash|
-   e = Entry.find(:hash => hash)
-
-   e.inspect
+   erb :saved, :locals => { :entry => e }
 end
 
 get '/stats' do
@@ -54,12 +49,26 @@ get '/style.css' do
    less :style
 end
 
+get %r{/([0-9a-f]+)/?} do |hash|
+   e = Entry.find(:hash => hash)
+   e.increment if !e.nil?
+   redirect e.url
+end
+
 class Entry < Sequel::Model(:entries)
    def hash= x
       if (self.entryid)
          super self.entryid.to_s(32)
       else
-         super Entry.max(:entryid).to_s(32)
+         max = Entry.max(:entryid)
+         max = max.nil? ? 0 : max + 1
+         super max.to_s(32)
       end
+   end
+
+   # CALLS SAVE.
+   def increment
+      self.visits = self.visits.to_i.next
+      self.save
    end
 end
