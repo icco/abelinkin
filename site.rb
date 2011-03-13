@@ -39,12 +39,25 @@ end
 post '/' do
    e = Entry.build params[:url]
 
-   erb :saved, :locals => { :entry => e }
+   if !e.nil?
+      erb :saved, :locals => { :entry => e }
+   else
+      error 404
+   end
 end
 
-get '/stats' do
+get %r{^/s(tats)?/?$} do
    entries = Entry.order(:date.desc).all
    erb :stats, :locals => { :entries => entries }
+end
+
+get %r{^/s(tats)?/([0-9a-z\-\_]+)/?$} do |crap, hash|
+   e = Entry.find(:urlhash => hash)
+   if !e.nil?
+      erb :stat, :locals => { :entry => e }
+   else
+      error 404
+   end
 end
 
 get '/style.css' do
@@ -52,7 +65,7 @@ get '/style.css' do
    less :style
 end
 
-get %r{^/([0-9a-z]+)/?$} do |hash|
+get %r{^/([0-9a-z\-\_]+)/?$} do |hash|
    e = Entry.find(:urlhash => hash)
    if !e.nil?
       e.increment
@@ -60,6 +73,10 @@ get %r{^/([0-9a-z]+)/?$} do |hash|
    else
       error 404
    end
+end
+
+error do
+   'Sorry there was a nasty error - ' + env['sinatra.error'].name
 end
 
 class Integer
@@ -97,6 +114,10 @@ class Entry < Sequel::Model(:entries)
    def increment
       self.visits = self.visits.to_i.next
       self.save
+   end
+
+   def link
+      return "/#{self.urlhash}"
    end
 
    def Entry.build url

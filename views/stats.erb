@@ -9,9 +9,13 @@
          <h1>Submitted Urls</h1>
          <ul>
             <% entries.each do |item| %>
-               <li><%= item.urlhash %> : <%= item.url %> : <%= item.visits %></li>
+               <li><a href="<%= item.link %>"><%= item.urlhash %></a> : <%= item.url %> : <%= item.visits %></li>
             <% end %>
          </ul>
+
+         <div id="homelink">
+            <a href="/">Head home...</a>
+         </div>
       </div>
    </body>
 </html>
