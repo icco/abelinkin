@@ -1,6 +1,5 @@
 source :rubygems
-gem 'sinatra', :git => "git://github.com/sinatra/sinatra.git"
-
+gem 'sinatra'
 gem 'less'
 gem 'sequel'
 gem 'dalli'
