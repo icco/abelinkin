@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Jenee's Music Survey</title>
+      <link type="text/css" rel="stylesheet" href="style.css" />
+   </head>
+   <body>
+      <div id="survey">
+         <div id="audio">
+            <audio src="/mp3s/<%= filename %>" controls="controls" autoplay="autoplay">
+            Your browser does not support the audio element.
+            </audio>
+         </div>
+         <div id="feel">
+            <form method="post">
+               <h2>This song sounds:</h2>
+               <input type="text" name="mood"></input>
+               <input type="hidden" name="songname" value="<%= filename %>"></input>
+               <input type="submit" value="Submit!"></input>
+            </form>
+         </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Jenee's Music Survey</title>
+      <link type="text/css" rel="stylesheet" href="style.css" />
+   </head>
+   <body>
+      <div id="stats">
+         <h1>Survey Results So Far</h1>
+         <ul>
+            <% entries.each_pair do |key, arr| %>
+               <h3><%= key %></h3>
+               <ul>
+                  <% arr.each do |mood| %>
+                     <li> <%= mood %></li>
+                  <% end %>
+               </ul>
+            <% end %>
+         </ul>
+      </div>
+   </body>
+</html>
