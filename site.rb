@@ -42,7 +42,7 @@ post '/' do
    if !e.nil?
       erb :saved, :locals => { :entry => e }
    else
-      error 404
+      error 'Not a valid url'
    end
 end
 
@@ -123,9 +123,15 @@ class Entry < Sequel::Model(:entries)
    end
 
    def Entry.build url
+      valid = [
+         URI::HTTP,
+         URI::HTTPS,
+         URI::FTP
+      ]
+
       parsed = URI::parse url
 
-      if parsed.class != URI::HTTP
+      if !valid.include? parsed.class
          return nil
       end
 
