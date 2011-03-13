@@ -11,7 +11,7 @@ rescue LoadError
 end
 
 # Check all of the gems we need are there.
-[ "sinatra", "less", "sequel", "dalli" ].each {|gem|
+[ "sinatra", "less", "sequel", "dalli", "uri" ].each {|gem|
    begin
       require gem
    rescue LoadError
@@ -37,11 +37,7 @@ get '/' do
 end
 
 post '/' do
-   e = Entry.new
-   e.url = params[:url]
-   e.urlhash = 'a'
-   e.date = Time.now
-   e.save
+   e = Entry.build params[:url]
 
    erb :saved, :locals => { :entry => e }
 end
@@ -56,26 +52,74 @@ get '/style.css' do
    less :style
 end
 
-get %r{/([0-9a-f]+)/?} do |hash|
+get %r{^/([0-9a-z]+)/?$} do |hash|
    e = Entry.find(:urlhash => hash)
-   e.increment if !e.nil?
-   redirect e.url
+   if !e.nil?
+      e.increment
+      redirect e.url
+   else
+      error 404
+   end
 end
+
+class Integer
+   def to_hashed
+      val = self.to_i
+
+      Integer.hashmath val
+   end
+
+   def Integer.hashmath x
+      @@hashes = ("0".."z").reject {|val| (/\w+/ =~ val).nil? }
+      if x == 0
+         return ""
+      else
+         return Integer.hashmath(x%63) + @@hashes[x]
+      end
+   end
+end
+
 
 class Entry < Sequel::Model(:entries)
    def urlhash= x
-      if (self.entryid)
-         super self.entryid.to_s(32)
-      else
-         max = Entry.max(:entryid)
-         max = max.nil? ? 0 : max + 1
-         super max.to_s(32)
+      h = x.hash
+      h36 = h.to_s 36
+
+      while !Entry.find(:urlhash => h36).nil? do
+         h = n.next
+         h36 = h.to_s 36
       end
+
+      super h36
    end
 
    # CALLS SAVE.
    def increment
       self.visits = self.visits.to_i.next
       self.save
+   end
+
+   def Entry.build url
+      parsed = URI::parse url
+
+      if parsed.class != URI::HTTP
+         return nil
+      end
+
+      f = Entry.find(:url => parsed.to_s)
+
+      if (!f.nil?)
+         return f
+      else
+         e = Entry.new
+         e.url = parsed.to_s
+         e.urlhash = parsed
+         e.date = Time.now
+         e.save
+
+         return e
+      end
+   rescue URI::InvalidURIError
+      return nil
    end
 end
