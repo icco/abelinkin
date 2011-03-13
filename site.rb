@@ -11,7 +11,7 @@ rescue LoadError
 end
 
 # Check all of the gems we need are there.
-[ "sinatra", "less", "sequel" ].each {|gem|
+[ "sinatra", "less", "sequel", "dalli" ].each {|gem|
    begin
       require gem
    rescue LoadError
@@ -22,7 +22,14 @@ end
 
 configure do
    set :sessions, true
+   set :logging, true
+
    DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://data.db')
+
+   if (settings.environment == 'production')
+      CACHE = Dalli::Client.new('localhost:11211')
+      Sequel::Model.plugin :caching, CACHE, :ignore_exceptions => true
+   end
 end
 
 get '/' do
