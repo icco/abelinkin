@@ -12,7 +12,7 @@ task :db do
    DB.create_table! :entries do
       primary_key :entryid
       String   :url,    :default => ""
-      String   :hash,   :default => ""
+      String   :urlhash,   :default => ""
       Integer  :visits, :default => 0
       DateTime :date
    end 

@@ -9,7 +9,7 @@
          <h1>Submitted Urls</h1>
          <ul>
             <% entries.each do |item| %>
-               <li> <%= item.inspect %></li>
+               <li><%= item.urlhash %> : <%= item.url %> : <%= item.visits %></li>
             <% end %>
          </ul>
       </div>

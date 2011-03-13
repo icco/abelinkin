@@ -32,7 +32,7 @@ end
 post '/' do
    e = Entry.new
    e.url = params[:url]
-   e.hash = 'a'
+   e.urlhash = 'a'
    e.date = Time.now
    e.save
 
@@ -40,7 +40,7 @@ post '/' do
 end
 
 get '/stats' do
-   entries = Entry.all
+   entries = Entry.order(:date.desc).all
    erb :stats, :locals => { :entries => entries }
 end
 
@@ -50,13 +50,13 @@ get '/style.css' do
 end
 
 get %r{/([0-9a-f]+)/?} do |hash|
-   e = Entry.find(:hash => hash)
+   e = Entry.find(:urlhash => hash)
    e.increment if !e.nil?
    redirect e.url
 end
 
 class Entry < Sequel::Model(:entries)
-   def hash= x
+   def urlhash= x
       if (self.entryid)
          super self.entryid.to_s(32)
       else
