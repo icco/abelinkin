@@ -122,6 +122,10 @@ class Entry < Sequel::Model(:entries)
       return "/#{self.urlhash}"
    end
 
+   def statlink
+      return "/s/#{self.urlhash}"
+   end
+
    def Entry.build url
       valid = [
          URI::HTTP,

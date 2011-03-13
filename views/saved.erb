@@ -5,12 +5,18 @@
       <div id="cont">
          <%= erb :header %>
 
-         Your short link is at:
+         <div id="saved">
+            <p>
+            Your short link is at:
+            </p>
 
-         <input type="text" value="<%= entry.link %>" />
+            <input type="text" class="link" value="http://urlgim.me<%= entry.link %>" />
 
-         <div id="homelink">
-            <a href="/">Submit another link...</a>
+            <p>
+            Stats for this link can be found at: <br />
+            <a href="<%= entry.statlink %>">http://urlgim.me<%= entry.statlink %></a>
+
+            
          </div>
 
          <%= erb :footer %>
