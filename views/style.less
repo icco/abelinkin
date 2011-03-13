@@ -1,10 +1,135 @@
-#stats {
+body {
+   font-family: 'Droid Sans Mono', arial, serif;
+
+   a, a:visited {
+      color: #666;
+      text-decoration: none;
+   }
+
+   a:hover {
+      color: black;
+      text-decoration: underline;
+   }
+}
+
+/**
+ * Fix float problem.
+ * http://www.positioniseverything.net/easyclearing.html
+ */
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.prefix:before {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#cont {
    width: 500px;
    margin: 80px auto;
 }
 
-#cont {
-   width: 300px;
-   text-align: center;
-   margin: 80px auto;
+#stats {
+
+   margin-bottom: 2em;
+
+   h2 {
+      font-size: 1.2em;
+      margin: 1.3em 0;
+   }
+
+   li {
+      margin-top: 10px;
+   }
+
+   .line {
+      margin: 1.6em 0;
+   }
+
+   .link {
+      font-size: 0.95em;
+      padding: 2px;
+      margin-left: 6px;
+
+      .supersmall {
+         font-size: 0.8em;
+         white-space: nowrap;
+         overflow: hidden;
+         display: inline-block;
+         line-height: 1.8em;
+         color: #ccc;
+         padding-left: 12px;
+      }
+   }
 }
+
+#feel {
+   h2 {
+      font-size: 1.2em;
+   }
+
+   input[type='text'] {
+      width: 500px;
+      display: block;
+      margin-bottom: 5px;
+      line-height: 1.3em;
+      padding: 6px;
+      border: solid 1px silver;
+   }
+
+   input[type='submit']:hover {
+      background-color: #666;
+   }
+
+   input[type='submit'] {
+      -moz-border-radius: 4px 4px 4px 4px;
+      -webkit-border-radius: 4px 4px 4px 4px;
+      background-color: silver;
+      border: medium none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: bold;
+      line-height: 1.334em;
+      margin: 0;
+      padding: 4px 6px 5px;
+      text-align: center;
+      line-height: 1.417em;
+      padding: 4px 6px;
+      float: right;
+      width: 120px;
+      margin: 10px;
+   }
+}
+
+#header {
+   font-size: 1.8em;
+   font-family: 'Lekton', arial, serif;
+   margin-bottom: 2.5em;
+}
+
+#header a, #header a:visited {
+   text-decoration: none;
+   color: black;
+}
+
+#footer {
+   margin-top: 2em;
+   border: silver dashed;
+   border-width: 0 0 0 1px;
+   padding: 5px;
+   font-size: 0.8em;
+}
+
+.copy {
+   font-family: 'Candal', arial, serif;
+}
+

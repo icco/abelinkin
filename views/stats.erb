@@ -2,18 +2,37 @@
 <html>
    <%= erb :head_tag %>
    <body>
-      <div id="cont">
+      <div id="cont" style="width: 600px;">
          <%= erb :header %>
 
-         <h2>Submitted Urls</h2>
-         <ul>
-            <% entries.each do |item| %>
-               <li><a href="<%= item.link %>"><%= item.urlhash %></a> : <%= item.url %> : <%= item.visits %></li>
-            <% end %>
-         </ul>
+         <div id="stats">
+            <h2>Most Recent Urls</h2>
 
-         <div id="homelink">
-            <a href="/">Head home...</a>
+            <ul>
+               <% recent.each do |item| %>
+                  <li>
+                     <div class="link">
+                        <a href="<%= item.link %>"><%= item.urlhash %></a> &middot; visited <%= item.visits %> times.<br />
+                        <span class="supersmall"><%= item.url %></span>
+                     </div>
+                  </li>
+               <% end %>
+            </ul>
+
+            <div class="line"><!-- IE --></div>
+
+            <h2>Most Popular Urls</h2>
+
+            <ul>
+               <% popular.each do |item| %>
+                  <li>
+                     <div class="link">
+                        <a href="<%= item.link %>"><%= item.urlhash %></a> &middot; visited <%= item.visits %> times.<br />
+                        <span class="supersmall"><%= item.url %></span>
+                     </div>
+                  </li>
+               <% end %>
+            </ul>
          </div>
 
          <%= erb :footer %>

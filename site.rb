@@ -47,8 +47,10 @@ post '/' do
 end
 
 get %r{^/s(tats)?/?$} do
-   entries = Entry.order(:date.desc).all
-   erb :stats, :locals => { :entries => entries }
+   r = Entry.order(:date.desc).all
+   p = Entry.order(:visits.desc).all
+
+   erb :stats, :locals => { :recent => r, :popular => p}
 end
 
 get %r{^/s(tats)?/([0-9a-z\-\_]+)/?$} do |crap, hash|
