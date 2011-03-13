@@ -1,0 +1,31 @@
+GIT
+  remote: git://github.com/sinatra/sinatra.git
+  revision: 87bdb85ff16f37f0ea75303b77a61f2c48b385aa
+  specs:
+    sinatra (1.2.0)
+      rack (~> 1.1)
+      tilt (>= 1.2.2, < 2.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    dalli (1.0.2)
+    less (1.2.21)
+      mutter (>= 0.4.2)
+      treetop (>= 1.4.2)
+    mutter (0.5.3)
+    polyglot (0.3.1)
+    rack (1.2.1)
+    sequel (3.21.0)
+    tilt (1.2.2)
+    treetop (1.4.9)
+      polyglot (>= 0.3.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dalli
+  less
+  sequel
+  sinatra!
