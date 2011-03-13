@@ -1,12 +1,9 @@
 <!doctype html>
 <html>
-   <head>
-      <title>Url Gim.me</title>
-      <link type="text/css" rel="stylesheet" href="style.css" />
-   </head>
+   <%= erb :head_tag %>
    <body>
       <div id="cont">
-         <h1 id="header">URL Gim.me</h1>
+         <%= erb :header %>
 
          <div id="feel">
             <form method="post">
@@ -15,6 +12,8 @@
                <input type="submit" value="Shorten!"></input>
             </form>
          </div>
+
+         <%= erb :footer %>
       </div>
    </body>
 </html>

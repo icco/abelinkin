@@ -1,12 +1,9 @@
 <!doctype html>
 <html>
-   <head>
-      <title>URL Gim.me</title>
-      <link type="text/css" rel="stylesheet" href="style.css" />
-   </head>
+   <%= erb :head_tag %>
    <body>
       <div id="cont">
-         <h1 id="header">URL Gim.me</h1>
+         <%= erb :header %>
 
          Your short link is at:
 
@@ -15,6 +12,8 @@
          <div id="homelink">
             <a href="/">Submit another link...</a>
          </div>
+
+         <%= erb :footer %>
       </div>
    </body>
 </html>
