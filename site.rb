@@ -53,7 +53,7 @@ get %r{^/s(tats)?/?$} do
    erb :stats, :locals => { :recent => r, :popular => p}
 end
 
-get %r{^/s(tats)?/([0-9a-z\-\_]+)/?$} do |crap, hash|
+get %r{^/s(tats)?/([0-9A-z\-\_]+)/?$} do |crap, hash|
    e = Entry.find(:urlhash => hash)
    if !e.nil?
       erb :stat, :locals => { :entry => e }
