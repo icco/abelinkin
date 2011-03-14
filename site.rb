@@ -67,7 +67,7 @@ get '/style.css' do
    less :style
 end
 
-get %r{^/([0-9a-z\-\_]+)/?$} do |hash|
+get %r{^/([0-9A-z\-\_]+)/?$} do |hash|
    e = Entry.find(:urlhash => hash)
    if !e.nil?
       e.increment
