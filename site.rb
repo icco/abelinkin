@@ -88,38 +88,24 @@ error do
    'Sorry there was a nasty error - ' + env['sinatra.error'].name
 end
 
-class Integer
-   def to_hashed
-      val = self.to_i
-
-      Integer.hashmath val
-   end
-
-   def Integer.hashmath x
-      @@hashes = ("0".."z").reject {|val| (/\w+/ =~ val).nil? }
-      if x == 0
-         return ""
-      else
-         return Integer.hashmath(x%63) + @@hashes[x]
-      end
-   end
-end
-
-
 class Entry < Sequel::Model(:entries)
+   # Generates a random hash for the url. This hash function will suck once we
+   # get to around 900 million (or less...)
    def urlhash= x
-      h = x.hash
-      h36 = h.to_s 36
+      @@hash_chars = ("1".."z").reject {|val| (/\w+/ =~ val).nil? }
+      r = Random.new
 
-      while !Entry.find(:urlhash => h36).nil? do
-         h = n.next
-         h36 = h.to_s 36
-      end
+      begin
+         idx = []
+         h = ""
+         (0..5).each { idx.push r.rand(0..@@hash_chars.length) }
+         idx.each {|i| h << @@hash_chars[i] }
+      end while !h and !Entry.find(:urlhash => h).nil?
 
-      super h36
+      super h
    end
 
-   # CALLS SAVE.
+   # CALLS SAVE. You have been warned.
    def increment
       self.visits = self.visits.to_i.next
       self.save
