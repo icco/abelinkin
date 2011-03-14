@@ -11,7 +11,7 @@ rescue LoadError
 end
 
 # Check all of the gems we need are there.
-[ "sinatra", "less", "sequel", "dalli", "uri" ].each {|gem|
+[ "logger", "sinatra", "less", "sequel", "dalli", "uri" ].each {|gem|
    begin
       require gem
    rescue LoadError
@@ -25,6 +25,13 @@ configure do
    set :logging, true
 
    DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://data.db')
+
+   # Print all queries to stdout
+   dblogger = Logger.new(STDOUT)
+   def dblogger.format_message(level, time, progname, msg)
+      " DATABASE - - [#{time.strftime("%d/%b/%Y %H:%M:%S")}] #{msg}\n"
+   end
+   DB.loggers << dblogger
 
    if (settings.environment == 'production')
       CACHE = Dalli::Client.new('localhost:11211')
