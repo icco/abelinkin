@@ -33,8 +33,8 @@ configure do
    end
    DB.loggers << dblogger
 
-   if (settings.environment == 'production')
-      CACHE = Dalli::Client.new('localhost:11211')
+   if (settings.environment == :production)
+      CACHE = Dalli::Client.new
       Sequel::Model.plugin :caching, CACHE, :ignore_exceptions => true
    end
 end
