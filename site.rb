@@ -39,6 +39,12 @@ configure do
    end
 end
 
+not_found { erb :fourohfour }
+error do
+   error = request.env['sinatra_error']
+   erb :fivehundred, :locals => { :error => error }
+end
+
 get '/' do
    erb :index
 end

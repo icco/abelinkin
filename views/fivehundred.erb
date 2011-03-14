@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+   <%= erb :head_tag %>
+   <body>
+      <div id="cont">
+         <%= erb :header %>
+
+         <div id="error">
+            <h2>Error</h2>
+            <p>
+            <%= error %>
+            </p>
+         </div>
+
+         <%= erb :footer %>
+      </div>
+   </body>
+</html>
