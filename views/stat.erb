@@ -5,9 +5,19 @@
       <div id="cont">
          <%= erb :header %>
 
-         <pre>
-         <%= entry.inspect%>
-         </pre>
+         <h1>Stats for <%= entry.urlhash %></h1>
+
+         <p>
+         Date Submitted: <%= entry.date %>
+         </p>
+
+         <p>
+         Visits: <%= entry.visits %>
+         </p>
+
+         <p>
+         Original URL: <%= entry.url %>
+         </p>
 
          <%= erb :footer %>
       </div>
