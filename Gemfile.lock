@@ -5,17 +5,17 @@ GEM
     less (1.2.21)
       mutter (>= 0.4.2)
       treetop (>= 1.4.2)
-    mustermann (1.0.2)
+    mustermann (1.0.3)
     mutter (0.5.3)
     polyglot (0.3.1)
-    rack (2.0.5)
-    rack-protection (2.0.3)
+    rack (2.0.6)
+    rack-protection (2.0.4)
       rack
     sequel (3.21.0)
-    sinatra (2.0.3)
+    sinatra (2.0.4)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.3)
+      rack-protection (= 2.0.4)
       tilt (~> 2.0)
     tilt (2.0.8)
     treetop (1.4.9)
@@ -28,7 +28,7 @@ DEPENDENCIES
   dalli
   less
   sequel
-  sinatra (>= 2.0.2)
+  sinatra (>= 2.0.3)
 
 BUNDLED WITH
-   1.16.1
+   1.16.6
